@@ -12,15 +12,26 @@ try {
     if (!client.db('admin').command({ "ping": 1 }))
         throw Error("Erro ao conectar ao banco !!")
     
-    //Exemplo de uso da sensibilidade diacritica
-    //Retornará apenas os produtos com a palavra reclinável com acento
-    const termo = "reclinável"
+    //Exemplo de uso da sensibilidade quanto á maiusculo ou minísculo
+    //Retornará apenas os produtos com a palavra Samsumg escrita exatamente igual ao termo
+    const termo = "Samsumg"
     let filtro = {
         $text: {
             $search: termo,
-            $diacriticSensitive:true
+            $caseSensitive:true
         }
     }
+
+
+    //Exemplo de uso da sensibilidade diacritica
+    //Retornará apenas os produtos com a palavra reclinável com acento
+    // const termo = "reclinável"
+    // let filtro = {
+    //     $text: {
+    //         $search: termo,
+    //         $diacriticSensitive:true
+    //     }
+    // }
 
     
     //Exemplo de exclusão de termo
