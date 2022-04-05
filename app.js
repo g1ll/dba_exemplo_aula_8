@@ -12,6 +12,8 @@ try {
     if (!client.db('admin').command({ "ping": 1 }))
         throw Error("Erro ao conectar ao banco !!")
 
+
+    //Exemplo busca por frases, índice descricao
     const termo = "\"Smartphone Asus\""
     let filtro = {
         $text: {
@@ -20,7 +22,7 @@ try {
     }
     const opcoes = {
         sort: { preco: -1 },
-        projection: { _id: 0,nome:0, preco:0,qtd_estoque:0,importado:0, desconto:0, id_prod:0}
+        projection: { _id: 0,descricao:1}
     }
 
     // filtro = {}
