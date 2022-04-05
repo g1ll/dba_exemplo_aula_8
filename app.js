@@ -9,25 +9,23 @@ const client = new MongoClient(uri);
 
 try {
     await client.connect()
-    if (client.db('admin').command({ "ping": 1 }))
-        console.log("Conectado!");
-    else throw Error("Erro ao conectar ao banco !!")
+    if (!client.db('admin').command({ "ping": 1 }))
+        throw Error("Erro ao conectar ao banco !!")
 
-    const termo = "LG"
-    const filtro = {
+    const termo = "SAMSUMG"
+    let filtro = {
         $text: {
             $search: termo,
         }
     }
-
     const opcoes = {
         sort: { preco: -1 },
-        projection: { _id: 0,importado:0, qtd_estoque:0, descricao:0 }
+        projection: { _id: 0,descricao:0 }
     }
 
+    // filtro = {}
     const collection = client.db('loja').collection('produtos')
-    collection.createIndex( { nome:"text" } )
-    const resultados = await collection.find({}, opcoes).toArray()
+    const resultados = await collection.find(filtro, opcoes).toArray()
     console.table(resultados)
 
 } catch (error) {
