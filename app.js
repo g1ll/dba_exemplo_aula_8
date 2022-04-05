@@ -11,18 +11,28 @@ try {
     await client.connect()
     if (!client.db('admin').command({ "ping": 1 }))
         throw Error("Erro ao conectar ao banco !!")
-
-
-    //Exemplo busca por frases, índice descricao
-    const termo = "\"Smartphone Asus\""
+    
+    
+    //Exemplo de exclusão de termo
+    //Retornará todos os produtos com a palavra Smartphone,
+    //exceto aqueles com o termo samsumg
+    const termo = "Smartphone -samsumg"
     let filtro = {
         $text: {
             $search: termo,
         }
     }
+
+    // //Exemplo busca por frases, índice descricao
+    // const termo = "\"Smartphone Asus\""
+    // let filtro = {
+    //     $text: {
+    //         $search: termo,
+    //     }
+    // }
     const opcoes = {
         sort: { preco: -1 },
-        projection: { _id: 0,descricao:1}
+        projection: { _id: 0, descricao: 1 }
     }
 
     // filtro = {}
